@@ -1,0 +1,8 @@
+package main
+
+import "fmt"
+
+func main() {
+	// your code here
+	fmt.Println("Hey there. This is your basic template.")
+}
