@@ -16,6 +16,7 @@ func main() {
 	}
 	fmt.Println("\nYour choice: ")
 
+	//Taking input about what to build
 	input := bufio.NewScanner(os.Stdin)
 	input.Scan()
 	template := input.Text()
@@ -27,6 +28,7 @@ func main() {
 		fmt.Println("I will build you a template for ", menuItems[1], "\n")
 	}
 
+	//Asking user to save the code or save the code and open in their favo editor
 	fmt.Println("Do you want to")
 	fmt.Println("1) Simply save the file")
 	fmt.Println("2) Open it in my favorite code editor")
@@ -38,7 +40,17 @@ func main() {
 		switch template {
 
 		case "1":
+			//exec.Command takes consecutive commands and executes
+			//basic_func.txt contains the required function which is saved as template.go
 			err := exec.Command("sh", "-c", "cat basic_func.txt >template.go").Run()
+			if err != nil {
+				fmt.Println(err)
+			} else {
+				fmt.Println("Saved your file as template.go")
+			}
+
+		case "2":
+			err := exec.Command("sh", "-c", "cat basic_server.txt >template.go").Run()
 			if err != nil {
 				fmt.Println(err)
 			} else {
@@ -58,6 +70,20 @@ func main() {
 			input.Scan()
 			editor := input.Text()
 			err := exec.Command("sh", "-c", "cat basic_func.txt >template.go").Run()
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			err = exec.Command(editor, "template.go").Run()
+			if err != nil {
+				fmt.Println(err)
+			}
+
+		case "2":
+			fmt.Println("Please enter the command to open your favourite editor ")
+			input.Scan()
+			editor := input.Text()
+			err := exec.Command("sh", "-c", "cat basic_server.txt >template.go").Run()
 			if err != nil {
 				fmt.Println(err)
 			}
